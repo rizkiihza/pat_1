@@ -17,6 +17,7 @@
 // libev
 #include <ev.h>
 
+// untuk alasan keindahan yang hakiki
 #define true 1
 #define BUFFER_SIZE 2048
 
@@ -26,7 +27,7 @@ void read_client(struct ev_loop *loop, struct ev_io *watcher, int revents);
 
 int main(int argc, char *argv[])
 {
-    // initialized const
+    // initialized host and port
     int port = 8080;
     char host[] = "127.0.0.1";
 
@@ -74,6 +75,7 @@ int main(int argc, char *argv[])
     ev_io_init(&w_accept, accept_client, server_fd, EV_READ);
     ev_io_start(loop, &w_accept);
 
+    // libev loop
     while (true)
     {
         ev_loop(loop, 0);
@@ -85,6 +87,7 @@ int main(int argc, char *argv[])
 // read html file into buffer
 void read_html_file(char *filename, char *buffer)
 {
+    // well self explanatory
     char str_row[2048];
     FILE *file;
     file = fopen(filename, "r");
