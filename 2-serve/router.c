@@ -4,7 +4,7 @@ void route(char *request, char *response) {
     char path[32];
     int parse_result = parse_path(request, path);
     if (parse_result == -1) {
-        strcpy(response, "HTTP/1.1 405 Method Not Allowed");
+        strcat(response, "HTTP/1.1 405 Method Not Allowed");
         return;
     }
 
@@ -16,7 +16,7 @@ void route(char *request, char *response) {
         read_file("templates/big.html", response);
     } else if (strcmp(path, "/small") == 0) {
         strcpy(response, "HTTP/1.1 200 OK");
-        read_file("templates/small.html", response);
+        read_file("templates/index.html", response);
     } else {
         strcpy(response, "HTTP/1.1 404 Not Found");
     }
