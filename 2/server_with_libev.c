@@ -169,7 +169,8 @@ void read_client(struct ev_loop *loop, struct ev_io *watcher, int revents)
         char file_extension[BUFFER_SIZE];
         strncpy(file_extension, path + strlen(path) - 3, 3);
 
-        if (strncmp(file_extension, "png", 3) == 0)
+        if (strncmp(file_extension, "png", 3) == 0 ||
+            strncmp(file_extension, "jpg", 3) == 0)
         {
             char filename[BUFFER_SIZE];
             strncpy(filename, path + 1, strlen(path));
