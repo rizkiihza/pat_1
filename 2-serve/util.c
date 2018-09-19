@@ -10,7 +10,7 @@ void read_file(char *filename, char *dest) {
 
         buffer = malloc(length);
         if (buffer) {
-          fread(buffer, 1, length, file);
+            fread(buffer, 1, length, file);
         }
         fclose(file);
     }

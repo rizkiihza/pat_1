@@ -1,0 +1,9 @@
+AccessModifierOffset: -4
+AlignTrailingComments: false
+AllowShortBlocksOnASingleLine: false
+AllowShortFunctionsOnASingleLine: None
+AlwaysBreakTemplateDeclarations: true
+BreakBeforeBraces: Attach
+ColumnLimit: '80'
+IndentWidth: 4
+ReflowComments: false

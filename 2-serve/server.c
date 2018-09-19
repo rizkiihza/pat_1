@@ -30,12 +30,11 @@
 void accept_client(struct ev_loop *loop, struct ev_io *w, int revents);
 void read_client(struct ev_loop *loop, struct ev_io *w, int revents);
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
     // initialize socket
-    int server_fd = socket(/* IPv4 */ AF_INET, /* TCP */ SOCK_STREAM, /* IP */ 0);
-    if (server_fd < 0)
-    {
+    int server_fd =
+        socket(/* IPv4 */ AF_INET, /* TCP */ SOCK_STREAM, /* IP */ 0);
+    if (server_fd < 0) {
         perror("Sayang sekali, inisiasi socket gagal");
         exit(1);
     }
@@ -53,9 +52,9 @@ int main(int argc, char *argv[])
     address.sin_family = AF_INET;
 
     // bind socket fd to address
-    int bind_result = bind(server_fd, (struct sockaddr *)&address, sizeof(address));
-    if (bind_result == -1)
-    {
+    int bind_result =
+        bind(server_fd, (struct sockaddr *)&address, sizeof(address));
+    if (bind_result == -1) {
         perror("Sayang sekali, binding socket fd dengan address gagal");
         close(server_fd);
         exit(1);
@@ -63,8 +62,7 @@ int main(int argc, char *argv[])
 
     // listen
     int listen_result = listen(server_fd, MAX_CONNECTION);
-    if (listen_result == -1)
-    {
+    if (listen_result == -1) {
         perror("Sayang sekali, server gagal mendengarkan");
         close(server_fd);
         exit(1);
@@ -83,11 +81,9 @@ int main(int argc, char *argv[])
 }
 
 // accept client connection
-void accept_client(struct ev_loop *loop, struct ev_io *w, int revents)
-{
+void accept_client(struct ev_loop *loop, struct ev_io *w, int revents) {
     // event error checking
-    if (EV_ERROR & revents)
-    {
+    if (EV_ERROR & revents) {
         perror("Sayang sekali, event tidak valid");
         return;
     }
@@ -96,8 +92,7 @@ void accept_client(struct ev_loop *loop, struct ev_io *w, int revents)
     struct sockaddr_in client_address;
     socklen_t length = sizeof(client_address);
     int client_fd = accept(w->fd, (struct sockaddr *)&client_address, &length);
-    if (client_fd == -1)
-    {
+    if (client_fd == -1) {
         perror("Sayang sekali, gagal menerima permintaan klien");
         return;
     }
@@ -110,11 +105,9 @@ void accept_client(struct ev_loop *loop, struct ev_io *w, int revents)
 }
 
 // read client message
-void read_client(struct ev_loop *loop, struct ev_io *w, int revents)
-{
+void read_client(struct ev_loop *loop, struct ev_io *w, int revents) {
     // event error checking
-    if (EV_ERROR & revents)
-    {
+    if (EV_ERROR & revents) {
         perror("Sayang sekali, event tidak valid");
         return;
     }
@@ -122,8 +115,7 @@ void read_client(struct ev_loop *loop, struct ev_io *w, int revents)
     // read client request
     char request[REQUEST_SIZE];
     ssize_t read_result = read(w->fd, request, sizeof(request));
-    if (read_result == -1)
-    {
+    if (read_result == -1) {
         perror("Sayang sekali, gagal membaca permintaan klien");
         return;
     }
