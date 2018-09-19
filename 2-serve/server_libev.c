@@ -16,8 +16,8 @@
 // libev
 #include <ev.h>
 
-// utilities
-#include "util.h"
+// internal libraries
+#include "router.h"
 
 #define PORT 8080
 #define HOST "127.0.0.1"
@@ -130,8 +130,7 @@ void read_client(struct ev_loop *loop, struct ev_io *w, int revents)
 
     // give response
     char response[BUFFER_SIZE];
-    strcpy(response, "HTTP/1.1 OK 200");
-    read_file("index.html", response);
+    route(request, response);
     write(w->fd, response, strlen(response));
 
     // close connection
