@@ -144,7 +144,8 @@ void read_client(struct ev_loop *loop, struct ev_io *w, int revents)
             strncpy(filename, path + 1, strlen(path));
 
             int fdimg = open(filename, O_RDONLY);
-            sendfile(w->fd, fdimg, NULL, 200000);
+            int maximum_size = 200000;
+            sendfile(w->fd, fdimg, NULL, maximum_size);
         }
     }
 
