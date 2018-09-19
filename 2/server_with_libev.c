@@ -24,6 +24,7 @@
 void read_html_file(char *filename, char *buffer);
 void accept_client(struct ev_loop *loop, struct ev_io *watcher, int revents);
 void read_client(struct ev_loop *loop, struct ev_io *watcher, int revents);
+char *getPathOfGetRequest(char *buf);
 
 int main(int argc, char *argv[])
 {
@@ -158,6 +159,27 @@ void read_client(struct ev_loop *loop, struct ev_io *watcher, int revents)
     // give response
     char response[2048];
     strcpy(response, "HTTP/1.1 OK 200");
+
+    char path[BUFFER_SIZE];
+    strcpy(path, getPathOfGetRequest(request));
+
+    // handle request for picture
+    if (strcmp(path, "/") != 0)
+    {
+        char file_extension[BUFFER_SIZE];
+        strncpy(file_extension, path + strlen(path) - 3, 3);
+
+        if (strncmp(file_extension, "png", 3) == 0)
+        {
+            char filename[BUFFER_SIZE];
+            strncpy(filename, path + 1, strlen(path));
+
+            printf("%s\n", filename);
+            int fdimg = open(filename, O_RDONLY);
+            sendfile(watcher->fd, fdimg, NULL, 200000);
+        }
+    }
+
     read_html_file("index.html", response);
     write(watcher->fd, response, strlen(response));
 
@@ -165,4 +187,21 @@ void read_client(struct ev_loop *loop, struct ev_io *watcher, int revents)
     ev_io_stop(loop, watcher);
     close(watcher->fd);
     bzero(request, sizeof(request));
+}
+
+// ini dapet dari stackoverflow
+char *getPathOfGetRequest(char *buf)
+{
+    char *path = NULL;
+
+    if (strtok(buf, " "))
+    {
+        path = strtok(NULL, " ");
+        if (path)
+        {
+            path = strdup(path);
+        }
+    }
+
+    return (path);
 }
