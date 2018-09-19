@@ -128,6 +128,27 @@ void read_client(struct ev_loop *loop, struct ev_io *w, int revents)
     }
     printf("%s\n", request);
 
+    char path[BUFFER_SIZE];
+    strcpy(path, getPathOfGetRequest(request));
+
+    // handle request for picture
+    if (strcmp(path, "/") != 0)
+    {
+        char file_extension[BUFFER_SIZE];
+        strncpy(file_extension, path + strlen(path) - 3, 3);
+
+        if (strncmp(file_extension, "png", 3) == 0 ||
+            strncmp(file_extension, "jpg", 3) == 0)
+        {
+            char filename[BUFFER_SIZE];
+            strncpy(filename, path + 1, strlen(path));
+
+            int fdimg = open(filename, O_RDONLY);
+            int maximum_size = 200000;
+            sendfile(w->fd, fdimg, NULL, maximum_size);
+        }
+    }
+
     // give response
     char response[BUFFER_SIZE];
     route(request, response);
