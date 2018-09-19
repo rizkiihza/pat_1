@@ -3,8 +3,8 @@
 clean:
 	@rm -f server_fork server_libev
 
-fork :	server_fork.c
-	@gcc -o server_fork server_fork.c
+fork: server_fork.c util.*
+	@gcc -o server_fork server_fork.c util.*
 
-libev : server_libev.c
-	@gcc -o server_libev server_libev.c -lev
+libev: server_libev.c util.*
+	@gcc -o server_libev server_libev.c util.* -lev

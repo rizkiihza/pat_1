@@ -16,6 +16,9 @@
 // libev
 #include <ev.h>
 
+// utilities
+#include "util.h"
+
 #define PORT 8080
 #define HOST "127.0.0.1"
 
@@ -25,7 +28,6 @@
 
 void accept_client(struct ev_loop *loop, struct ev_io *w, int revents);
 void read_client(struct ev_loop *loop, struct ev_io *w, int revents);
-void read_file(char *filename, char *buffer);
 
 int main(int argc, char *argv[])
 {
@@ -136,21 +138,4 @@ void read_client(struct ev_loop *loop, struct ev_io *w, int revents)
     ev_io_stop(loop, w);
     close(w->fd);
     bzero(request, sizeof(request));
-}
-
-// read html file into buffer
-void read_file(char *filename, char *buffer)
-{
-    // well self explanatory
-    char str_row[BUFFER_SIZE];
-    FILE *file;
-    file = fopen(filename, "r");
-    if (file)
-    {
-        while (fgets(str_row, BUFFER_SIZE, (FILE *)file))
-        {
-            strcat(buffer, str_row);
-        }
-    }
-    fclose(file);
 }
