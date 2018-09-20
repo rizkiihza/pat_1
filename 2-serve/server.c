@@ -22,7 +22,7 @@
 #define PORT 8080
 #define HOST "127.0.0.1"
 
-#define MAX_CONNECTION 1000
+#define MAX_CONNECTION 10000
 
 #define REQUEST_SIZE 2048
 #define RESPONSE_SIZE 32768
