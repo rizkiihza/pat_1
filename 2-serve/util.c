@@ -14,6 +14,7 @@ void read_file(char *filename, char *dest) {
         }
         fclose(file);
     }
-
     strcat(dest, buffer);
+
+    free(buffer);
 }
