@@ -14,9 +14,9 @@ void route(char *request, char *response) {
     strcpy(response, ok_header);
     if (strcmp(path, "/") == 0) {
         read_file("templates/small.html", response);
-    } else if (strcmp(path, "/big") == 0) {
+    } else if (strcmp(path, "/big/") == 0) {
         read_file("templates/big.html", response);
-    } else if (strcmp(path, "/small") == 0) {
+    } else if (strcmp(path, "/small/") == 0) {
         read_file("templates/small.html", response);
     } else {
         strcpy(response, not_found_header);
