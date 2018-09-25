@@ -8,17 +8,18 @@ void route(char *request, char *response) {
         return;
     }
 
+    char ok_header[] = "HTTP/1.1 200 OK\n\n";
+    char not_found_header[] = "HTTP/1.1 404 Not Found\n\n";
+
+    strcpy(response, ok_header);
     if (strcmp(path, "/") == 0) {
-        strcpy(response, "HTTP/1.1 200 OK");
         read_file("templates/small.html", response);
     } else if (strcmp(path, "/big") == 0) {
-        strcpy(response, "HTTP/1.1 200 OK");
         read_file("templates/big.html", response);
     } else if (strcmp(path, "/small") == 0) {
-        strcpy(response, "HTTP/1.1 200 OK");
         read_file("templates/small.html", response);
     } else {
-        strcpy(response, "HTTP/1.1 404 Not Found");
+        strcpy(response, not_found_header);
     }
 }
 

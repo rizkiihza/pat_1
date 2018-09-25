@@ -1,12 +1,25 @@
 .PHONY: all clean run
 
+CC = gcc
+
+BUILD_DIR = .
+BUILD_FILE = $(BUILD_DIR)/server
+
+SRC_DIR = .
+SRC_FILES = $(shell find $(SRC_DIR) -name '*.c')
+
+CFLAGS = -lev
+ifdef VERBOSE
+CFLAGS += -DVERBOSE=1
+endif
+
 all: run
 
 clean:
-	@rm -f server
+	@rm -f $(BUILD_FILE)
 
 run: server
-	@./server
+	@./$(BUILD_FILE)
 
 server: server.c router.* util.*
-	@gcc -o server server.c router.c util.c -lev
+	@$(CC) -o $(BUILD_FILE) $(SRC_FILES) $(CFLAGS)

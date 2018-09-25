@@ -119,12 +119,19 @@ void read_client(struct ev_loop *loop, struct ev_io *w, int revents) {
         perror("Sayang sekali, gagal membaca permintaan klien");
         return;
     }
+
+#ifdef VERBOSE
     printf("%s\n", request);
+#endif
 
     // give response
     char response[RESPONSE_SIZE];
     route(request, response);
     write(w->fd, response, strlen(response));
+
+#ifdef VERBOSE
+    printf("%s\n", response);
+#endif
 
     // close connection
     ev_io_stop(loop, w);
