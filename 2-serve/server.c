@@ -20,7 +20,7 @@
 #include "router.h"
 
 #define PORT 8080
-#define HOST "127.0.0.1"
+#define HOST "0.0.0.0"
 
 #define MAX_CONNECTION 10000
 
