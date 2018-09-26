@@ -15,8 +15,8 @@ Nomor 1:
     Penggunaan Docker ini terdapat di script `./1-measure/nginx-docker.sh` dan `./1-measure/ab-docker.sh`.
 
   b. Apache:
-    1. 
-    2. 
+    1. Menjalankan Apache dengan cara `./apache-docker.sh` untuk men-serve file-file html di direktori `./1-measure/templates`
+    2. Menjalankan ApacheBench dengan command `ab -n 10000 -c 10000 http://localhost:8080/<file>` di mana file-file yang dimaksud adalah `small.html` (500 bytes) dan `big.html` (20 KB).
 
 - Hasil:
   a. NGINX:
@@ -32,14 +32,14 @@ Nomor 1:
 
   b. Apache:
     - rata-rata waktu respons per request:
-       1. 500 bytes:
-       2. 20 KB    :
+       1. 500 bytes: 2.505 ms
+       2. 20 KB    : 6.442 ms
     - total waktu respons per request:
-       1. 500 bytes:
-       2. 20 KB    :
+       1. 500 bytes: 25050.011 ms
+       2. 20 KB    : 64415.433 ms
     - memori yang digunakan:
-       1. 500 bytes:
-       2. 20 KB    :
+       1. 500 bytes: ~20 MiB
+       2. 20 KB    : ~34 MiB
 
 Nomor 2:
 - Petunjuk instalasi:
